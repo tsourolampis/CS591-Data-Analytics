@@ -1,0 +1,157 @@
+% Based on Aleksander Madry's template
+
+\documentclass[10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{tikz}
+\usetikzlibrary{calc, shapes, backgrounds}
+
+
+\usetikzlibrary{arrows}
+\usepackage{subfigure}
+\usepackage{stackrel}
+\usepackage{blindtext}
+%\usepackage{hyperref} 
+
+\oddsidemargin=0.15in
+\evensidemargin=0.15in
+\topmargin=-.5in
+\textheight=9in
+\textwidth=6.25in
+
+\usepackage[colorlinks=true,breaklinks,pdfpagemode=none,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{enumerate}
+
+%\usepackage{enumitem}
+%\setlist{itemsep=0mm}
+
+
+
+%\usepackage[usenames,dvipsnames]{pstricks}
+%\usepackage{epsfig}
+\usepackage{amsmath,amsfonts,amssymb,bm}
+%\usepackage{pst-grad} % For gradients
+%\usepackage{pst-plot} % For axes
+
+
+%% Enviroment definitions (add your own here)
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+
+\newenvironment{proof}{\noindent{\bf Proof}\hspace*{1em}}{\qed\bigskip}
+
+%% New commands (add your own here)
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\hv}{\hat{v}}
+\newcommand{\hL}{\hat{L}}
+\newcommand{\hlambda}{\hat{\lambda}}
+\newcommand{\homega}{\hat{\omega}}
+\newcommand{\hp}{\hat{p}}
+\newcommand{\hW}{\hat{W}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\qed}{\rule{7pt}{7pt}}
+\newcommand{\cF}{\mathcal{F}}
+
+\begin{document}
+
+   \noindent
+   \begin{center}
+
+   \hrulefill
+   
+   \vspace{5pt}
+   
+   \makebox[\textwidth]{ {\bf \href{http://people.seas.harvard.edu/~babis/cs591_bu_sp17.html}{CS 591: Data Analytics -- Spring 2017}} \hfill  January 23, 2016}
+   \vspace{0pt}
+   
+   {\Large \hfill  Lecture 1\hfill}
+   \vspace{5pt}
+   
+   \makebox[\textwidth]{ {\it Lecturer: Charalampos E. Tsourakakis \hfill Scribe: (Scribe name here)} }
+   
+   \vspace{-3pt}
+   \hrulefill
+   \end{center}
+
+
+\section{How to create figures: Tikz}
+
+\tikzset{
+  head/.style = {fill = orange!90!blue,
+                 label = center:\textsf{\Large H}},
+  tail/.style = {fill = blue!70!yellow, text = black,
+                 label = center:\textsf{\Large T}}
+}
+\begin{tikzpicture}[
+    scale = 1.5, transform shape, thick,
+    every node/.style = {draw, circle, minimum size = 10mm},
+    grow = down,  % alignment of characters
+    level 1/.style = {sibling distance=3cm},
+    level 2/.style = {sibling distance=4cm}, 
+    level 3/.style = {sibling distance=2cm}, 
+    level distance = 1.25cm
+  ]
+  \node[fill = gray!40, shape = rectangle, rounded corners,
+    minimum width = 6cm, font = \sffamily] {Coin flipping} 
+  child { node[shape = circle split, draw, line width = 1pt,
+          minimum size = 10mm, inner sep = 0mm, font = \sffamily\large,
+          rotate=30] (Start)
+          { \rotatebox{-30}{H} \nodepart{lower} \rotatebox{-30}{T}}
+   child {   node [head] (A) {}
+     child { node [head] (B) {}}
+     child { node [tail] (C) {}}
+   }
+   child {   node [tail] (D) {}
+     child { node [head] (E) {}}
+     child { node [tail] (F) {}}
+   }
+  };
+
+  % Filling the root (Start)
+  \begin{scope}[on background layer, rotate=30]
+    \fill[head] (Start.base) ([xshift = 0mm]Start.east) arc (0:180:5mm)
+      -- cycle;
+    \fill[tail] (Start.base) ([xshift = 0pt]Start.west) arc (180:360:5mm)
+      -- cycle;
+  \end{scope}
+
+  % Labels
+  \begin{scope}[nodes = {draw = none}]
+    \path (Start) -- (A) node [near start, left]  {$0.5$};
+    \path (A)     -- (B) node [near start, left]  {$0.5$};
+    \path (A)     -- (C) node [near start, right] {$0.5$};
+    \path (Start) -- (D) node [near start, right] {$0.5$};
+    \path (D)     -- (E) node [near start, left]  {$0.5$};
+    \path (D)     -- (F) node [near start, right] {$0.5$};
+    \begin{scope}[nodes = {below = 11pt}]
+      \node [name = X] at (B) {$0.25$};
+      \node            at (C) {$0.25$};
+      \node [name = Y] at (E) {$0.25$};
+      \node            at (F) {$0.25$};
+    \end{scope}
+    \draw[densely dashed, rounded corners, thin]
+      (X.south west) rectangle (Y.north east);
+  \end{scope}
+\end{tikzpicture} 
+
+
+\section{Bayes rule and an application} 
+
+
+
+
+\end{document}
+
